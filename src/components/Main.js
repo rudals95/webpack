@@ -12,7 +12,7 @@ const Main = () => {
   return (
     <>
       <button onClick={이동}> 이동 </button>
-      <p>메인</p>
+      <p>메인 s</p>
       <Routes>
         <Route path="/test" element={<Test />} />
         <Route path="/content" element={<Content />} />
