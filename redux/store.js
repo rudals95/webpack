@@ -1,4 +1,3 @@
-import React from 'react';
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 
 let user = createSlice({

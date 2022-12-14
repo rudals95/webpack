@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
-import { Main } from './page/Main';
-import Login from './page/Login/index';
-import Join from './page/Join/index';
+import { Main } from '@/components/main/index';
+import Login from './page/login/index';
+import Join from './page/join/index';
 import './app.css';
 import { Provider } from 'react-redux';
 import store from '../redux/store';

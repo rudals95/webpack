@@ -2,8 +2,8 @@ import React, { useState, useCallback } from 'react';
 import useInput from '../../../hooks/useInput';
 import { Link, useNavigate } from 'react-router-dom';
 import { Form, Label, Input, LinkContainer, Button, Header } from './style';
-import { API } from '../../../utils/api/api';
-import { store, changeName, changePassword } from './../../../redux/store';
+
+import { store, changeName, changePassword } from '../../../redux/store';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 const Login = () => {
