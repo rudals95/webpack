@@ -1,7 +1,16 @@
+.dog {
+  background: url('./images/dog.jpg');
+}
 
-.dog{
-    background: url('./images/dog.jpg');
+.dog2 {
+  background: url('./images/phone.png');
 }
-.cat{
-    background: url('./images/cat.svg');
+.cat {
+  background: url('./images/cat.svg');
 }
+.cat2 {
+  background: url('./images/cat.png');
+}
+/* .do {
+  background: url('./images/do.png');
+} */

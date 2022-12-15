@@ -1,50 +1,53 @@
 import React, { useState, useCallback } from 'react';
 import useInput from '../../../hooks/useInput';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Form, Label, Input, LinkContainer, Button, Header } from './style';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch } from 'react-redux';
+import { loginApi } from '../../api';
+import { setCookie } from './../../utils/cookie';
+import { setLogin } from '../../store/slices/userSlice';
 
-import { store, changeName, changePassword } from '../../../redux/store';
-import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
 const Login = () => {
-  const [email, onChangeEmail, setEmail] = useInput('');
-  const [password, onChangePassword, setPassword] = useInput('');
-  const [resData, setResData] = useState({
-    email: '',
-    password: '',
-    state: false,
-  });
-  const store = useSelector((state) => state);
+  const [email, onChangeEmail] = useInput('');
+  const [password, onChangePassword] = useInput('');
   const dispatch = useDispatch();
 
-  const post = {
-    email: email,
-    password: password,
-  };
+  const success = (txt) => toast.success(txt, { position: 'top-center' }); // 성공
+  const error = (txt) => toast.error(txt, { position: 'top-center' }); // 실패
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(post);
-    dispatch(changeName(email));
-    dispatch(changePassword(password));
-    // API('http://localhost:8095/api/login', post, resData, setResData);
-
-    axios
-      .post('http://localhost:8095/api/login', post)
+    const post = {
+      email: email,
+      password: password,
+    };
+    loginApi(post)
       .then((res) => {
-        console.log(res);
+        if (!res.data.loginSuccess) return error(res.data.message);
+        setCookie('access_token', res.data.user.token);
+
+        //로그인시 디비 속 받아 토큰 굽기
+        //스토어 유저 정보 업데이트
+        dispatch(
+          setLogin({
+            _id: res.data.user._id,
+            name: res.data.user.name,
+            email: res.data.user.email,
+            role: res.data.user.role,
+            token: res.data.user.token,
+            isLogin: true,
+          }),
+        );
       })
       .catch((err) => {
         console.log(err.response);
       });
-    console.log(resData);
-    // if (resData.state) {
-    //   navigate('/main');
-    // }
   };
-  console.log(store);
   return (
     <>
+      <ToastContainer />
       <div id="container">
         <Header>로그인</Header>
         <Form onSubmit={handleSubmit}>
@@ -78,14 +81,6 @@ const Login = () => {
           <Link to="/join">회원가입</Link>
         </LinkContainer>
       </div>
-
-      {/* <div className="dog" style={{ width: '200px', height: '200px' }}></div>
-      <div
-        className="cat"
-        style={{ width: '200px', height: '200px', backgroundSize: '100%' }}
-      >
-
-      </div> */}
     </>
   );
 };

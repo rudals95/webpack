@@ -6,9 +6,8 @@ import { Form, Label, Input, LinkContainer, Button, Error } from './style';
 import { Box } from '@chakra-ui/react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { joinData } from './../../api/index';
+import { signUp } from './../../api/index';
 import { useEffect } from 'react';
-import axios from 'axios';
 
 const Join = () => {
   const [nickname, onChangeNickName, setNickName] = useInput('');
@@ -50,7 +49,7 @@ const Join = () => {
     if (password === '') return error('비밀번호를입력하세요');
     if (password !== passwordCheck) return error('비밀번호가 일치하지않습니다');
     console.log(email, nickname, password, passwordCheck);
-    await joinData(post)
+    await signUp(post)
       .then((res) => console.log('결과', res))
       .catch((err) => console.log('err', err.response));
   };
