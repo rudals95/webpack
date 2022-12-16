@@ -20,18 +20,18 @@ export default function App() {
       console.log(res.data, '로그인시 디비속 조회');
       // console.log(isAccessToken(), '쿠키속 토큰조회');
       //쿠키에 토큰없으면 스토어 로그인 정보 저장 로그인여부 true/false
-      if (isAccessToken()) {
-        dispatch(
-          setLogin({
-            _id: res.data._id,
-            name: res.data.name,
-            email: res.data.email,
-            role: res.data.role,
-            token: res.data.token,
-            isLogin: true,
-          }),
-        );
-      } else return;
+      // if (isAccessToken()) {
+      //   dispatch(
+      //     setLogin({
+      //       _id: res.data._id,
+      //       name: res.data.name,
+      //       email: res.data.email,
+      //       role: res.data.role,
+      //       token: res.data.token,
+      //       isLogin: true,
+      //     }),
+      //   );
+      // } else return;
     });
   };
 
@@ -71,7 +71,7 @@ export default function App() {
   // }, []);
 
   useEffect(() => {
-    isLogin();
+    // isLogin();
     if (store.user.isLogin) {
       setLoginSuccese(true);
     } else setLoginSuccese(false);

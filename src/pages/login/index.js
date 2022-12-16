@@ -8,6 +8,9 @@ import { useDispatch } from 'react-redux';
 import { loginApi } from '../../api';
 import { setCookie } from './../../utils/cookie';
 import { setLogin } from '../../store/slices/userSlice';
+import axios from 'axios';
+import { useEffect } from 'react';
+import API from './../../utils/API';
 
 const Login = () => {
   const [email, onChangeEmail] = useInput('');
@@ -25,10 +28,8 @@ const Login = () => {
     };
     loginApi(post)
       .then((res) => {
-        if (!res.data.loginSuccess) return error(res.data.message);
-        setCookie('access_token', res.data.user.token);
-
-        //로그인시 디비 속 받아 토큰 굽기
+        console.log(res.data, 'res');
+        if (res.data.loginSuccess) setCookie('access_token', res.data.token);
         //스토어 유저 정보 업데이트
         dispatch(
           setLogin({
@@ -42,9 +43,32 @@ const Login = () => {
         );
       })
       .catch((err) => {
-        console.log(err.response);
+        // console.log(err.response.data, 'err');
+        // if (!err.response.data.loginSuccess) error(err.response.data.message);
       });
   };
+
+  // const printLater = (number) => {
+  //   return new Promise((resolve) => {
+  //     console.log(number);
+  //     resolve(number);
+  //   });
+  // };
+  // printLater(1).then(printLater(2));
+
+  // const getData = () => {
+  //   return new Promise((resolve) => {
+  //     API.get('/api/auth/check').then((res) => {
+  //       console.log(res, 'ddddd');
+  //       resolve(res.data);
+  //     });
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   getData().then(console.log('dd'));
+  // }, []);
+
   return (
     <>
       <ToastContainer />

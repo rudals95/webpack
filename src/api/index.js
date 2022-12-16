@@ -4,7 +4,7 @@ const headers = { 'Content-Type': 'application/json' };
 
 // 가입
 export const signUp = (data) => {
-  const url = '/api/users/register';
+  const url = '/api/auth/register';
   const config = {
     headers,
   };
@@ -13,7 +13,7 @@ export const signUp = (data) => {
 
 // 로그인
 export const loginApi = (data) => {
-  const url = '/api/users/login';
+  const url = '/api/auth/login';
   const config = {
     headers,
   };
@@ -21,7 +21,7 @@ export const loginApi = (data) => {
 };
 // 토큰조회
 export const authToken = (data) => {
-  const url = '/api/users/auth';
+  const url = '/api/auth/check';
   const config = {
     headers,
   };

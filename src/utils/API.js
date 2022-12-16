@@ -11,10 +11,11 @@ const API = axios.create({
 API.interceptors.request.use(
   (config) => {
     const data = config;
-    const accessToken = getCookie('accessToken');
+    const accessToken = getCookie('access_token');
     data.headers = {
       Authorization: `${accessToken}`,
       Accept: '*/*',
+      'x-access-token': `${accessToken}`,
     };
     return data;
   },

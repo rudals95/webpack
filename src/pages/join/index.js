@@ -41,7 +41,7 @@ const Join = () => {
     e.preventDefault();
     const post = {
       email: email,
-      name: nickname,
+      username: nickname,
       password: password,
     };
     if (email === '') return error('이메일을입력하세요');
