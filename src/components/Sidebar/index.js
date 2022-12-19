@@ -1,12 +1,17 @@
 import React from 'react';
-import { Nav } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button, Box, Text } from '@chakra-ui/react';
+import { Button, Box } from '@chakra-ui/react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { removeCookie } from '../../utils/cookie';
+import { setLogin } from '../../store/slices/userSlice';
+import { logoutApi } from '../../api';
+
 export const SideBar = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const goToMenu = () => {
-    navigate('/test');
-  };
+  const store = useSelector((state) => state);
+
   return (
     <Box border="1px" borderColor="gray.200" mb="10px" p="20px">
       <Button>
@@ -14,14 +19,12 @@ export const SideBar = () => {
           home
         </Link>
       </Button>
-      <Button ml="10px">
-        <Link to="/join" className="pd-10">
-          가입
-        </Link>
-      </Button>
-      <Button ml="10px">
+      <Button
+        ml="10px"
+        // onClick={logout}
+      >
         <Link to="/login" className="pd-10">
-          로그인
+          로그아웃
         </Link>
       </Button>
     </Box>

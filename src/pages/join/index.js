@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import useInput from '../../../hooks/useInput';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Header } from '../../components/Header';
 import { Form, Label, Input, LinkContainer, Button, Error } from './style';
 import { Box } from '@chakra-ui/react';
@@ -15,7 +15,7 @@ const Join = () => {
   const [password, , setPassword] = useInput('');
   const [passwordCheck, , setPasswordCheck] = useInput('');
   const [mismatchError, setmismatchError] = useState(false);
-
+  const navigate = useNavigate();
   const onChangePassword = useCallback(
     (e) => {
       setPassword(e.target.value);
@@ -50,8 +50,15 @@ const Join = () => {
     if (password !== passwordCheck) return error('비밀번호가 일치하지않습니다');
     console.log(email, nickname, password, passwordCheck);
     await signUp(post)
-      .then((res) => console.log('결과', res))
-      .catch((err) => console.log('err', err.response));
+      .then((res) => {
+        console.log('결과', res);
+        success(res.data.message);
+        navigate('/');
+      })
+      .catch((err) => {
+        console.log('err', err.response);
+        error(err.response.data.message);
+      });
   };
   // 성공 알람 ( 초록색 창 )
   const success = (txt) => toast.success(txt, { position: 'top-center' });

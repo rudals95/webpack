@@ -19,6 +19,14 @@ export const loginApi = (data) => {
   };
   return API.post(url, data, config);
 };
+// 로그인
+export const logoutApi = (data) => {
+  const url = '/api/auth/logout';
+  const config = {
+    headers,
+  };
+  return API.post(url, data, config);
+};
 // 토큰조회
 export const authToken = (data) => {
   const url = '/api/auth/check';
